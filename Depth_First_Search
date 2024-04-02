@@ -1,0 +1,46 @@
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Edge {
+    int dest;
+
+    public Edge(int dest) {
+        this.dest = dest;
+    }
+}
+
+public class Main {
+    public static void dfs(ArrayList<Edge> graph[], int curr,boolean vis[]) {
+        System.out.print(curr+" ");
+        vis[curr]= true;
+
+        for(int i=0;i<graph[curr].size();i++){
+            Edge e = graph[curr].get(i);
+            if(!vis[curr]==false){
+                dfs(graph,e.dest,vis);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int v = 7; // Number of vertices
+        ArrayList<Edge>[] graph = new ArrayList[v];
+        for (int i = 0; i < v; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        // Example graph
+        graph[0].add(new Edge(1));
+        graph[0].add(new Edge(2));
+        graph[1].add(new Edge(3));
+        graph[2].add(new Edge(4));
+        graph[3].add(new Edge(4));
+        graph[4].add(new Edge(5));
+        graph[5].add(new Edge(6));
+
+        boolean[] visited = new boolean[v]; // To keep track of visited vertices
+        dfs(graph, 0, visited); // Start DFS from vertex 0
+    }
+}
