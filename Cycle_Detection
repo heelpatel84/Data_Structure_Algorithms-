@@ -1,0 +1,62 @@
+// Cycle Detection For Directed Graph
+import java.util.ArrayList;
+
+class Edge {
+    int dest;
+
+    public Edge(int dest) {
+        this.dest = dest;
+    }
+}
+
+public class Main {
+    public static boolean isCycleDirected(ArrayList<Edge> graph[], boolean vis[], int curr, boolean rec[]) {
+       
+        vis[curr] = true; // Mark current vertex as visited
+        rec[curr] = true; // Mark current vertex in recursion stack
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (isCycleDirected(graph, vis, e.dest, rec)) // Recursively check for cycles
+                return true;
+        }
+
+        rec[curr] = false; // Backtrack, remove current vertex from recursion stack
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int v = 7; // Number of vertices
+        ArrayList<Edge>[] graph = new ArrayList[v];
+        for (int i = 0; i < v; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        // Example graph
+        graph[0].add(new Edge(1));
+        graph[0].add(new Edge(2));
+        graph[1].add(new Edge(3));
+        graph[2].add(new Edge(4));
+        graph[3].add(new Edge(4));
+        graph[4].add(new Edge(5));
+        graph[5].add(new Edge(4));
+
+        boolean[] visited = new boolean[v]; // To keep track of visited vertices
+        boolean[] recursionStack = new boolean[v]; // To keep track of vertices in recursion stack
+
+        boolean hasCycle = false;
+        for (int i = 0; i < v; i++) {
+            if (!visited[i]) {
+                if (isCycleDirected(graph, visited, i, recursionStack)) {
+                    hasCycle = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasCycle)
+            System.out.println("The graph contains a cycle");
+        else
+            System.out.println("The graph does not contain a cycle");
+    }
+}
