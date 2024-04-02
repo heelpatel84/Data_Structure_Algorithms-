@@ -1,0 +1,57 @@
+// Graph Traversal Algorithm : 1. Breadth First Algorithm (BFS)
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Edge {
+    int dest;
+
+    public Edge(int dest) {
+        this.dest = dest;
+    }
+}
+
+public class Main {
+    public static void bfs(ArrayList<Edge> graph[], int v) {
+        Queue<Integer> q = new LinkedList<>();
+        boolean vis[] = new boolean[v];
+
+        // Starting BFS from vertex 0
+        q.add(0);
+        vis[0] = true;
+
+        while (!q.isEmpty()) {
+            int curr = q.remove();
+            System.out.print(curr + " ");
+
+            for (int i = 0; i < graph[curr].size(); i++) {
+                Edge e = graph[curr].get(i);
+                int next = e.dest;
+                if (!vis[next]) {
+                    q.add(next);
+                    vis[next] = true;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        int v = 7; // Number of vertices
+        ArrayList<Edge>[] graph = new ArrayList[v];
+        for (int i = 0; i < v; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        // Example graph
+        graph[0].add(new Edge(1));
+        graph[0].add(new Edge(2));
+        graph[1].add(new Edge(3));
+        graph[2].add(new Edge(4));
+        graph[3].add(new Edge(5));
+        graph[4].add(new Edge(5));
+        graph[5].add(new Edge(6));
+
+        bfs(graph, v);
+    }
+}
