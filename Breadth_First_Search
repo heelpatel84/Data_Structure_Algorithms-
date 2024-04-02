@@ -1,4 +1,4 @@
-// Graph Traversal Algorithm : 1. Breadth First Algorithm (BFS)
+// Graph Traversal Algorithm : 1. Breadth First Search (BFS)
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
